@@ -1,5 +1,7 @@
+--eventmanagement this is the database name--
 use eventmanagement ;
 
+--Event Table--
 CREATE TABLE EVENT 
 (
 EVENTID CHAR(10) NOT NULL ,
@@ -9,11 +11,14 @@ ENDDATE DATE,
 LOCATION VARCHAR(20)
 );
 
+--Altering in the means adding the constraint in the table--
 ALTER TABLE EVENT
 ADD CONSTRAINT PK_EVENT PRIMARY KEY (EVENTID);
 
+--If any thing wrong in the table the we can drop the table--
 DROP TABLE EVENT ;
 
+--Inserting the data in the table--
 INSERT INTO EVENT (EVENTID, EVENTNAME, STARTDATE, ENDDATE, LOCATION)
 VALUES('EV01', 'SINGING CONSERT','2024-07-02', '2024-07-12', 'PUNE'),
 ('EV02', 'DANCE PROGRAM', '2024-08-25', '2024-09-02', 'JAIPUR'),
@@ -21,8 +26,10 @@ VALUES('EV01', 'SINGING CONSERT','2024-07-02', '2024-07-12', 'PUNE'),
 ('EV04', 'OLD CAR EXHIBITION', '2024-09-15', '2024-09-20', 'BANGLORE'),
 ('EV05', 'MAGICAL SHOW', '2024-10-05', '2024-10-05', 'NAGPUR');
 
+--Displaying all the data from the table through the below querry--
 SELECT * FROM EVENT ;
 
+--PARTICIPANT Table--
 CREATE TABLE PARTICIPANT (
     PARTICIPANTID CHAR(20) NOT NULL,
     PARTICIPANTNAME VARCHAR(100) NOT NULL,
@@ -33,9 +40,10 @@ CREATE TABLE PARTICIPANT (
     CONSTRAINT FK_PARTICIPANT_EVENT FOREIGN KEY (EVENTID) REFERENCES EVENT(EVENTID)
 );
 
-
+--Dropping the table if anything is wrong, then we can create the table from the above code-- 
 DROP TABLE PARTICIPANT ;
 
+--inserting the data--
 INSERT INTO PARTICIPANT (PARTICIPANTID, PARTICIPANTNAME, EMAIL, PHONE, EVENTID)
 VALUES
 ('P001', 'John Doe', 'john@example.com', '9876543210', 'EV01'),
@@ -44,8 +52,10 @@ VALUES
 ('P004', 'Emily Clark', 'emily@example.com', '6543210987', 'EV03'),
 ('P005', 'MUNNALAL', 'david@example.com', '7654321098', 'EV04');
 
+--Displaying all the data--
 SELECT * FROM PARTICIPANT ;
 
+--TICKET Table--
 CREATE TABLE TICKET (
     TICKETID CHAR(10) NOT NULL,
     EVENTID CHAR(10) NOT NULL,
@@ -60,8 +70,10 @@ CREATE TABLE TICKET (
     CONSTRAINT CK_STATUS CHECK (STATUS IN ('BOOKED', 'PENDING', 'CANCELLED'))
 );
 
+--Dropping the table--
 DROP TABLE TICKET ;
 
+--Inserting the data--
 INSERT INTO TICKET (TICKETID, EVENTID, PARTICIPANTID, TICKETTYPE, PRICE, STATUS, PURCHASEDDATE)
 VALUES
 ('T001', 'EV01', 'P001', 'VIP', 1500.00, 'BOOKED', '2024-06-28'),
@@ -70,8 +82,10 @@ VALUES
 ('T004', 'EV03', 'P004', 'Regular', 1000.00, 'CANCELLED', '2020-09-03'),
 ('T005', 'EV05', 'P005', 'Regular', 1300.00, 'PENDING', '2024-09-20');
 
+--Displaying the data from the table--
 SELECT * FROM TICKET ;
 
+--SPONSOR Table--
 CREATE TABLE SPONSOR (
     SPONSORID CHAR(10) NOT NULL,
     SPONSORNAME VARCHAR(100) NOT NULL,
@@ -82,6 +96,8 @@ CREATE TABLE SPONSOR (
     CONSTRAINT FK_SPONSOR_EVENT FOREIGN KEY (EVENTID) REFERENCES EVENT(EVENTID)
 );
 
+--Inserting The data--
+
 INSERT INTO SPONSOR (SPONSORID, SPONSORNAME, SPONSORSHIPAMOUNT, EVENTID, CONTACTINFO)
 VALUES
 ('S001', 'MusicWorld', 50000.00, 'EV01', 'con123@musicworld.com'),
@@ -90,8 +106,10 @@ VALUES
 ('S004', 'BMW', 30000.00, 'EV04', 'bmw@mail.com'),
 ('S005', 'MAGICFund', 25000.00, 'EV05', 'support@magicfund.com');
 
+--Displaying all the data from the table--
 SELECT * FROM SPONSOR ;
 
+--SCHEDULE Table--
 CREATE TABLE SCHEDULE (
     SCHEDULEID CHAR(10) NOT NULL,
     EVENTID CHAR(10) NOT NULL,
@@ -103,6 +121,8 @@ CREATE TABLE SCHEDULE (
     CONSTRAINT FK_SCHEDULE_EVENT FOREIGN KEY (EVENTID) REFERENCES EVENT(EVENTID)
 );
 
+--Inserting the data--
+
 INSERT INTO SCHEDULE (SCHEDULEID, EVENTID, ACTIVITY, STARTTIME, ENDTIME, LOCATION)
 VALUES
 ('SCH001', 'EV01', 'Music Performance', '2024-07-02 18:00:00', '2024-10-12 22:00:00', 'Deccan fc road'),
@@ -111,6 +131,7 @@ VALUES
 ('SCH004', 'EV04', 'Exhibition', '2021-01-15 14:00:00', '2021-01-15 16:00:00', 'Big Ground'),
 ('SCH005', 'EV05', 'Magic', '2024-10-05 17:00:00', '2024-10-05 20:00:00', 'King Hall');
 
+--Displaying all the data from the table--
 SELECT * FROM SCHEDULE ;
 
 
